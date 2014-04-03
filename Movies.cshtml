@@ -2,7 +2,7 @@
     var db = Database.Open("WebPagesMovies");
     var selectCommand = "SELECT * FROM Movies";
     var searchTerm = "";
-    int numOfRowsPerPage = 5;
+    var numOfRowsPerPage = 4;
 
     if(!Request.QueryString["searchGenre"].IsEmpty())
     {
@@ -32,7 +32,6 @@
     <body>
         <h1>Movies</h1>
 
-
         <form method="get">
         
             <div>
@@ -55,7 +54,7 @@
                     grid.Column("Genre"),
                     grid.Column("Year")
                 )
-        )
+            )
         </div>
         
     </body>
