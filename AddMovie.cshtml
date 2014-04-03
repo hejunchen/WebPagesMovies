@@ -1,8 +1,17 @@
 ﻿@{
+    
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Add a Movie";
+
+    Validation.RequireField("title", "You must enter a title");
+    Validation.RequireField("genre", "Genre is required");
+    Validation.RequireField("year", "You haven't entered a year");    
+
     var title = "";
     var genre = "";
     var year = "";
-    if(IsPost)
+
+    if(IsPost && Validation.IsValid())
     {
         title = Request.Form["title"];
         genre = Request.Form["genre"];
@@ -15,35 +24,32 @@
     }
 }
 
-<!DOCTYPE html>
+        <form method="post">
+            <h2>Add a Movie</h2>
+            @Html.ValidationSummary()
+            <fieldset>
+                <legend>Movie Information</legend>
+                <p>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" value="@Request.Form["title"]" />
+                    @Html.ValidationMessage("title")
+                </p>
+                <p>
+                    <label for="genre">Genre:</label>
+                    <input type="text" name="genre" value="@Request.Form["genre"]" />
+                    @Html.ValidationMessage("genre")
+                </p>
+                <p>
+                    <label for="year">Year:</label>
+                    <input type="text" name="year" value="@Request.Form["year"]" />
+                    @Html.ValidationMessage("year")
+                </p>
+                <p>
+                    <input type="submit" name="buttonSubmit" value="Add Movie" />
+                </p>
+            </fieldset>
+        </form>
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Add a Movie</title>
-    </head>
-    <body>
-        
-        <h1>Add a Movie</h1>
-        <fieldset>
-            <legend>Movie Information</legend>
-            <p>
-                <label for="title">Title:</label>
-                <input type="text" name="title" value="@Request.Form["title"]" />
-            </p>
-            <p>
-                <label for="genre">Genre:</label>
-                <input type="text" name="genre" value="@Request.Form["genre"]" />
-            </p>
-            <p>
-                <label for="year">Year:</label>
-                <input type="text" name="year" value="@Request.Form["year"]" />
-            </p>
-            <p>
-                <input type="submit" name="buttonSubmit" value="Add Movie" />
-            </p>
-        </fieldset>
-
-
-    </body>
-</html>
+        <p>
+            <a href="~/Movies">Return to movie listing</a>
+        </p>
