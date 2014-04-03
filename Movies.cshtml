@@ -1,6 +1,15 @@
 ﻿@{
     var db = Database.Open("WebPagesMovies");
-    var selectedData = db.Query("SELECT * FROM Movies");
+    var selectCommand = "SELECT * FROM Movies";
+    var searchTerm = "";
+
+    if(!Request.QueryString["searchGenre"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM Movies WHERE Genre = @0";
+        searchTerm = Request.QueryString["searchGenre"];        
+    }
+
+    var selectedData = db.Query(selectCommand, searchTerm);
     var grid = new WebGrid(source: selectedData, rowsPerPage: 3);
 }
 
@@ -27,7 +36,7 @@
         
             <div>
                 <label for="searchGenre">Gnere to look for:</label>
-                <input type="text" name="searchGenre" value="" />
+                <input type="text" name="searchGenre" value="@Request.QueryString["searchGenre"]" />
                 <input type="submit" value="Search Genre" /><br/>
                 (Leave blank to list all movies)<br/>
             
