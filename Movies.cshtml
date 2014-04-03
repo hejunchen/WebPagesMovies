@@ -9,6 +9,12 @@
         searchTerm = Request.QueryString["searchGenre"];        
     }
 
+    if(!Request.QueryString["searchTitle"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM Movies WHERE Title LIKE @0";
+        searchTerm = "%" + Request["searchTitle"] + "%";
+    }
+
     var selectedData = db.Query(selectCommand, searchTerm);
     var grid = new WebGrid(source: selectedData, rowsPerPage: 3);
 }
@@ -39,7 +45,12 @@
                 <input type="text" name="searchGenre" value="@Request.QueryString["searchGenre"]" />
                 <input type="submit" value="Search Genre" /><br/>
                 (Leave blank to list all movies)<br/>
-            
+            </div>
+
+            <div>
+                <label for="searchTitle">Movie title contains the following:</label>
+                <input type="text" name="searchTitle" value="@Request.QueryString["searchTitle"]" />
+                <input type="submit" value="Search Title" /><br/>
             </div>
         
         </form>
