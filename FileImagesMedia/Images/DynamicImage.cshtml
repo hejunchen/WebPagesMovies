@@ -1,7 +1,8 @@
 ﻿@{  var imagePath= "";
-    if( Request["photoChoice"] != null){
-        imagePath = @"images\" + Request["photoChoice"];
-   }
+    if(Request["photoChoice"] != null)
+    {
+        imagePath = @"/Images/" + Request["photoChoice"];
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,15 @@
                 FileInfo[] files = di.GetFiles("*.jpg");
                 foreach(FileInfo fi in files)
                 {
-                    <option value="@fi.Name">@fi.Name</option>
+                    if (!Request["photoChoice"].IsEmpty() && @fi.Name == Request["photoChoice"])
+                    {
+                        <option value="@fi.Name" selected="selected">@fi.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@fi.Name">@fi.Name</option>    
+                    }
+                    
                 }
             }
             @*<option value="autumn-in-the-park-15609-1920x1080.jpg">autumn-in-the-park-15609-1920x1080</option>
@@ -29,9 +38,10 @@
         &nbsp;
         <input type="submit" value="Submit" />
     </div>
+
     <div style="padding:10px;">
         @if(imagePath != ""){
-            <img src="@imagePath" alt="Sample Image" width="300px" />
+            <img src="@imagePath" alt="Sample Image" width="600px" />
         }
     </div>
 </form>
