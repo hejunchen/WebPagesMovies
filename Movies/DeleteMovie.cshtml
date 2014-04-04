@@ -38,7 +38,7 @@
         var db = Database.Open("WebPagesMovies");
         var deleteCommand = "DELETE FROM Movies WHERE ID = @0";
         db.Execute(deleteCommand, movieId);
-        Response.Redirect("~/Movies");
+        Response.Redirect("~/Movies/Movies");
     }
 
 }
@@ -65,4 +65,4 @@
             </fieldset>
           </form>
 
-            <p><a href="~/Movies">Return to movie listing</a></p>
+            <p><a href="~/Movies/Movies">Return to movie listing</a></p>

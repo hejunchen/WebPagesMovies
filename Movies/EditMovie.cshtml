@@ -54,7 +54,7 @@
             var db = Database.Open("WebPagesMovies");
             var updateCommand = "UPDATE Movies SET Title=@0, Genre=@1, Year=@2 WHERE ID=@3";
             db.Execute(updateCommand, title, genre, year, movieId);
-            Response.Redirect("~/Movies");
+            Response.Redirect("~/Movies/Movies");
         }
 
     }    
@@ -93,5 +93,5 @@
             </form>
 
             <p>
-                <a href="~/Movies">Return to movie listing</a>
+                <a href="~/Movies/Movies">Return to movie listing</a>
             </p>

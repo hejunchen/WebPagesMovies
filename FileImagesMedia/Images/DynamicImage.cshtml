@@ -1,0 +1,39 @@
+﻿@{  var imagePath= "";
+    if( Request["photoChoice"] != null){
+        imagePath = @"images\" + Request["photoChoice"];
+   }
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Image on the Fly</title>
+</head>
+<body>
+<h1>Displaying an Image On the Fly</h1>
+<form method="post" action="">
+    <div>
+        I want to see:
+        <select name="photoChoice">
+            @{
+                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Images"));
+                FileInfo[] files = di.GetFiles("*.jpg");
+                foreach(FileInfo fi in files)
+                {
+                    <option value="@fi.Name">@fi.Name</option>
+                }
+            }
+            @*<option value="autumn-in-the-park-15609-1920x1080.jpg">autumn-in-the-park-15609-1920x1080</option>
+            <option value="coffee-in-heart-shaped-cups-22598-1920x1080.jpg">coffee-in-heart-shaped-cups-22598-1920x1080</option>
+            <option value="sad-whale-in-the-storm-22603-1920x1080.jpg">sad-whale-in-the-storm-22603-1920x1080</option>*@
+        </select>
+        &nbsp;
+        <input type="submit" value="Submit" />
+    </div>
+    <div style="padding:10px;">
+        @if(imagePath != ""){
+            <img src="@imagePath" alt="Sample Image" width="300px" />
+        }
+    </div>
+</form>
+</body>
+</html>
