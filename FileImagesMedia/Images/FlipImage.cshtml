@@ -1,0 +1,41 @@
+﻿@{  var imagePath= @"/Images/Picture017.jpg";
+    WebImage photo = new WebImage(@"~" + imagePath);
+    if(photo != null){
+        photo.FlipVertical();
+        photo.FlipHorizontal();
+        photo.Save(@"~" + imagePath);
+     }
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Image From File</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<h1>Flip Image Vertically</h1>
+<h3>@DateTime.Now.ToString()</h3>
+<form method="get">
+    <input type="submit" id="btnSubmit" name="submit" value="Refresh Page" onclick="window.location.reload()" disabled="disabled" />
+</form>
+
+
+
+<br /><br />   
+@if(imagePath != ""){
+  <div class="result">
+    <img src="@imagePath" alt="Image" />
+  </div>
+}
+
+
+<script>
+    function EnableButton() {
+        document.getElementById('btnSubmit').attributes.removeNamedItem('disabled');
+    }
+    setTimeout(EnableButton, 1000);
+</script>
+
+
+</body>
+</html>
