@@ -1,0 +1,44 @@
+﻿<!--
+This page demonstrates how to use WebImage object to create a customized Security Question
+to replace reCaptcha. The reCaptcha tool is useful but sometimes it may just add too much complexity to the user.
+-->
+
+@{
+
+    //define the image background
+    string imageByteString = @"iVBORw0KGgoAAAANSUhEUgAAAMgAAABDCAYAAADZL0qFAAAAAXNSR0IArs
+                               4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAF1
+                               SURBVHhe7dMxrqpQFIbRI7GgtrB3EM6NkhJGxBBsnIgxMXQUmPAQjcV9yT
+                               8B10o22ftQf7vL5bIMw1Dqui7A2ziOpe/7Utq2XdbbGPNnXnZd1y1N06x3
+                               KafTqczzvO3wa6qqKtM0lfv9vt1rH+UbyPF4LLfbbfsBv+p6vZbz+bztr0
+                               CqbVs9n8/PBr/r8Xh8trdvIMD/BAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKB
+                               QCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQC
+                               AQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQ
+                               CAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBALBN5D9fv
+                               /Z4HcdDofP9rbrum5pmmY7TqdTmed52+HXVFVVpmkq9/t9u5dlKaVt2/Vb
+                               jDF/5mV3uVyWYRhKXdfrG/AyjmPp+778A3In3uN8NN9fAAAAAElFTkSuQm
+                               CC";
+    byte[] imageBytes = Convert.FromBase64String(imageByteString);
+    WebImage background = new WebImage(imageBytes);
+    
+    Random rnd = new Random();
+    string math = string.Format("{0} + {1} = ?", rnd.Next(1, 20), rnd.Next(1, 20));
+        
+    background.AddTextWatermark(math, fontColor: "black", fontFamily: "Arial", fontSize: 40, horizontalAlign: "center", verticalAlign: "bottom");
+    string strImage = Convert.ToBase64String(background.GetBytes());
+
+}
+ 
+<!DOCTYPE html>
+ 
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <p>
+            <img src="data:image/png;base64,@strImage" alt="image with watermark" height="50" />
+        </p>
+    </body>
+</html>
